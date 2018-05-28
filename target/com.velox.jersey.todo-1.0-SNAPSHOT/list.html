@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>JQUERY</title>
+</head>
+<body>
+
+<ul id="todoList"></ul>
+
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+findAll();
+
+$(document).ajaxError(function(event, request, settings) {
+    alert("Error accessing the server");
+});
+
+function findAll() {
+    $.getJSON('http://localhost:8080/com.velox.jersey.todo/rest/todos', function(data) {
+        $('#todoList li').remove();
+        var todos = data;
+        var currentURL = window.location.href;
+        $.each(todos, function(index, todo) {
+            $('#todoList').append(
+                '<li><a href="http://localhost:8080/com.velox.jersey.todo/rest/todos/' + todo.id + '">'
+                + todo.id + '</a>' + ' '
+                + todo.summary + ' ' + todo.description) + '</li>';
+        });
+    });
+}
+</script>
+</body>
+</html>

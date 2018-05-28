@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Form to create a new resource</title>
+	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script type="text/javascript">
+	
+	$(document).ajaxError(function(event, request, settings) {
+	    alert("Error accessing the server");
+	});
+	
+	function newTodo() {
+		var baseUrl = 'http://localhost:8080/com.velox.jersey.todo/rest/todos/';
+		var idUrl = document.querySelector('input').value;
+		var url = baseUrl.concat(idUrl);
+	    $.post(
+	    	url, 
+	    	$('form#create').serialize(),
+	    	function(data) {
+	    		
+	    	},
+	    	'json'
+	    );
+	}   
+	</script>
+ </head>
+<body>
+  <form name="create" action="rest/todos" onSubmit="newTodo">
+  <label for="id">ID</label>
+  <input name="id" />
+  <br/>
+  <label for="summary">Summary</label>
+  <input name="summary" />
+  <br/>
+  Description:
+  <TEXTAREA NAME="description" COLS=40 ROWS=6></TEXTAREA>
+  <br/>
+  <input type="submit" value="Submit" />
+  </form>
+  
+  <p/>
+  <a href="http://localhost:8080/com.velox.jersey.todo/list.html">Todos List</a>
+
+</body>
+</html> 
